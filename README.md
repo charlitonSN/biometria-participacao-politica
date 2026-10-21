@@ -14,11 +14,11 @@ Entre 2008 e 2022, a Justiça Eleitoral fez o recadastramento biométrico obriga
 
 ## Principais resultados
 
-![Coeficientes DiD](resultados/figuras/coeficientes_did.png)
+![Replicação × artigo](resultados/figuras/comparacao_artigo.png)
 
-1. **O número de eleitores aptos cai** entre 2,3% e 5,3% nos municípios recadastrados.
-2. **A taxa de comparecimento (comparecimento/aptos) sobe** de 2,0 a 3,9 pontos percentuais.
-3. **O comparecimento absoluto e o comparecimento em relação à população não se alteram.** Os efeitos são estatística e economicamente nulos.
+1. **O número de eleitores aptos cai.** Nas eleições estaduais de 2018, com a especificação do artigo, a queda é de cerca de 5,5% (no artigo, 6%). Na especificação do relatório, as quedas vão de 2,3% a 5,3%, conforme o painel.
+2. **A taxa de comparecimento (comparecimento/aptos) sobe.** São 4,5 pontos percentuais em 2018 (no artigo, 5 p.p.) e de 2,0 a 3,9 p.p. na especificação do relatório.
+3. **O comparecimento absoluto e o comparecimento em relação à população não se alteram.** Os efeitos são estatística e economicamente nulos em todos os painéis.
 
 ➡️ O aumento da taxa de comparecimento é um **efeito mecânico**: ele vem da limpeza do cadastro (o denominador menor), e não de mais engajamento político. Também **não há evidência de que o recadastramento tenha reduzido o número de pessoas que efetivamente votam**. Esse resultado está em linha com o artigo original.
 
@@ -83,13 +83,9 @@ As eleições de 2008 e 2010 foram descartadas da análise principal porque têm
 
 ## Tendências paralelas
 
-Cada linha mostra a média de tratados (linha contínua) e controles (linha tracejada). A linha vermelha marca o ano do tratamento.
+![Tendências pré-tratamento](resultados/figuras/tendencias_estadual_2018.png)
 
-| | Log (Aptos) | Log (Comparecimento) | Comp./População | Comp./Aptos |
-|---|---|---|---|---|
-| **Estaduais 2018** | ![](resultados/figuras/tendencias_paralelas/estadual_2018_l_aptos.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2018_l_compa.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2018_prop_pop.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2018_prop_compa.jpg) |
-| **Estaduais 2014** | ![](resultados/figuras/tendencias_paralelas/estadual_2014_l_aptos.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2014_l_compa.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2014_prop_pop.jpg) | ![](resultados/figuras/tendencias_paralelas/estadual_2014_prop_compa.jpg) |
-| **Municipais 2016** | ![](resultados/figuras/tendencias_paralelas/municipal_2016_l_aptos.jpg) | ![](resultados/figuras/tendencias_paralelas/municipal_2016_l_compa.jpg) | ![](resultados/figuras/tendencias_paralelas/municipal_2016_prop_pop.jpg) | ![](resultados/figuras/tendencias_paralelas/municipal_2016_prop_compa.jpg) |
+No caso de referência (eleições estaduais, municípios tratados em 2018), tratados e controles seguem trajetórias aproximadamente paralelas até 2014. Em 2018, o número de aptos dos tratados cai e a taxa de comparecimento sobe, enquanto o comparecimento absoluto e em relação à população continua na mesma tendência. Os gráficos dos demais painéis (estaduais 2014 e municipais 2016) estão no [relatório](relatorio/relatorio_replicacao_biometria.pdf) e são gerados por [`05_tendencias_paralelas.do`](codigo/stata/05_tendencias_paralelas.do).
 
 ## Comparação com o artigo original
 
@@ -102,9 +98,7 @@ Cada linha mostra a média de tratados (linha contínua) e controles (linha trac
 | Erros-padrão | Clusterizados em duas vias: UF e eleição | Clusterizados por município |
 | Comparecimento/aptos | Fração (0,050 = 5 p.p.) | Pontos percentuais (3,936 = 3,9 p.p.) |
 
-![Replicação × artigo](resultados/figuras/comparacao_artigo.png)
-
-Quando a especificação do artigo é aplicada à mesma base ([`paineis_artigo` em `codigo/python/biometria/modelos.py`](codigo/python/biometria/modelos.py) e [`06_especificacao_artigo.do`](codigo/stata/06_especificacao_artigo.do)), os coeficientes ficam muito próximos dos publicados:
+Quando a especificação do artigo é aplicada à mesma base ([`paineis_artigo` em `codigo/python/biometria/modelos.py`](codigo/python/biometria/modelos.py) e [`06_especificacao_artigo.do`](codigo/stata/06_especificacao_artigo.do)), os coeficientes ficam muito próximos dos publicados (veja a figura no início da página):
 
 | Painel | Log (Aptos) | Comp./Aptos | Comp./População | Log (Comp.) | N |
 |---|:---:|:---:|:---:|:---:|:---:|
@@ -144,11 +138,11 @@ Nessa especificação, o placebo também é pequeno e não significativo, como n
 │   └── test_replicacao.py              # testes de reprodutibilidade (pytest)
 ├── dados/
 │   ├── README.md                       # fontes e dicionário de variáveis
-│   ├── brutos/                         # TSE, IBGE, Atlas Brasil
+│   ├── brutos/                         # não versionado: baixe seguindo dados/README.md
 │   └── processados/                    # painel_final.dta (base usada nas estimações)
 └── resultados/
     ├── tabelas/                        # CSVs gerados em Python (stata/ = saídas do Stata)
-    └── figuras/                        # coeficientes e tendências paralelas
+    └── figuras/                        # replicação × artigo e tendências pré-tratamento
 ```
 
 ## Como reproduzir
@@ -163,7 +157,7 @@ pytest                           # roda os testes de reprodutibilidade
 **Stata** (versão 17 ou superior, por causa do `xtdidregress`):
 1. Abra `codigo/stata/00_master.do` e ajuste o `global raiz` para a pasta do repositório.
 2. Rode o `00_master.do`. Ele instala `estout`, `ftools` e `reghdfe` se necessário, executa as etapas 02 a 06 e salva tabelas em `resultados/tabelas/stata/` e gráficos em `resultados/figuras/tendencias_paralelas/`.
-3. *(Opcional)* Para reconstruir o painel a partir dos dados brutos, baixe o `eleicoes.csv` (veja [`dados/README.md`](dados/README.md)) e mude `reconstruir_base` para `1` no `00_master.do`.
+3. *(Opcional)* Para reconstruir o painel a partir dos dados brutos, baixe as quatro bases conforme [`dados/README.md`](dados/README.md) e mude `reconstruir_base` para `1` no `00_master.do`.
 
 ### Testes de reprodutibilidade
 

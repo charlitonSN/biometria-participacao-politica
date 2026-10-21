@@ -9,7 +9,7 @@ import pandas as pd  # noqa: E402
 
 from .config import ROTULOS_PAINEIS  # noqa: E402
 
-AZUL, AZUL_MEDIO, AZUL_CLARO, CINZA = "#1f4e79", "#5b8db8", "#a3c4e0", "#9aa5b1"
+AZUL, CINZA = "#1f4e79", "#9aa5b1"
 
 
 def _formatar_eixo(ax, titulo, rotulos):
@@ -23,21 +23,32 @@ def _formatar_eixo(ax, titulo, rotulos):
         ax.spines[lado].set_visible(False)
 
 
-def grafico_relatorio(res: pd.DataFrame, destino: Path) -> None:
-    """Painéis A–C da especificação do relatório."""
-    cores = {"A": AZUL, "B": AZUL_MEDIO, "C": AZUL_CLARO}
-    fig, axes = plt.subplots(1, 4, figsize=(15, 4.2), sharey=True)
-    for ax, (y, sub) in zip(axes, res[res.painel != "D"].groupby("desfecho", sort=False)):
-        sub = sub.reset_index(drop=True)
-        for i, r in sub.iterrows():
-            ax.errorbar(r.coef, i, xerr=1.96 * r.erro_padrao, fmt="o", ms=7,
-                        color=cores[r.painel], capsize=4, lw=2)
-        _formatar_eixo(ax, sub.rotulo.iloc[0], [ROTULOS_PAINEIS[p] for p in sub.painel])
-    axes[0].invert_yaxis()  # eixo y compartilhado: inverter uma única vez
-    fig.suptitle("Efeito do recadastramento biométrico (DiD, IC 95%)", fontsize=13, x=0.01, ha="left")
-    fig.text(0.01, 0.005, "Eleitores aptos caem e a taxa de comparecimento sobe; comparecimento absoluto "
-             "e em relação à população não se alteram → efeito mecânico.", fontsize=9, color="#555")
-    fig.tight_layout(rect=(0, 0.04, 1, 0.95))
+def grafico_tendencias(df: pd.DataFrame, destino: Path) -> None:
+    """Médias anuais de tratados em 2018 e controles nas eleições estaduais (Painel A,
+    especificação do artigo): verificação visual das tendências pré-tratamento."""
+    d = df[(df["cargo"] == "governador") & df["g_trat_est"].isin([2018, 0, 2022])].copy()
+    d["grupo"] = (d["g_trat_est"] == 2018).map({True: "Tratados em 2018", False: "Controle"})
+    medias = d.groupby(["ano", "grupo"])[["l_aptos", "prop_compa", "prop_pop", "l_compa"]].mean()
+
+    paineis = [("l_aptos", "Log (Aptos)"), ("l_compa", "Log (Comparecimento)"),
+               ("prop_compa", "Comparecimento / Aptos (%)"), ("prop_pop", "Comparecimento / População")]
+    fig, axes = plt.subplots(2, 2, figsize=(11, 7.5), sharex=True)
+    for ax, (y, titulo) in zip(axes.flat, paineis):
+        for grupo, cor, estilo in (("Tratados em 2018", AZUL, "-"), ("Controle", CINZA, "--")):
+            serie = medias.xs(grupo, level="grupo")[y]
+            ax.plot(serie.index, serie.values, estilo, color=cor, lw=2.2, marker="o", ms=4, label=grupo)
+        ax.axvline(2018, color="#c0392b", lw=1, ls=":")
+        ax.set_title(titulo, fontsize=11)
+        ax.set_xticks([2002, 2006, 2010, 2014, 2018, 2022])
+        ax.grid(axis="y", alpha=.3)
+        for lado in ("top", "right"):
+            ax.spines[lado].set_visible(False)
+    fig.legend(*axes[0, 0].get_legend_handles_labels(), loc="upper right", ncol=2, frameon=False, fontsize=10)
+    fig.suptitle("Tendências pré-tratamento: eleições estaduais, tratados em 2018 × controles",
+                 fontsize=13, x=0.01, ha="left")
+    fig.text(0.01, 0.01, "Médias municipais por eleição. Controle: nunca tratados e recadastrados após 2018 "
+             "(especificação do artigo). Linha vermelha: eleição de 2018.", fontsize=8.5, color="#555")
+    fig.tight_layout(rect=(0, 0.03, 1, 0.94))
     fig.savefig(destino, dpi=200)
     plt.close(fig)
 

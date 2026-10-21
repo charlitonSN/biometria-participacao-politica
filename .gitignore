@@ -1,5 +1,7 @@
-# Base bruta grande (baixar da Base dos Dados — ver dados/README.md)
-dados/brutos/eleicoes.csv
+# Dados brutos: não são versionados (veja dados/README.md para baixar)
+dados/brutos/**
+!dados/brutos/**/
+!dados/brutos/**/.gitkeep
 # Stata / Python temporários
 *.log
 *.smcl
@@ -14,4 +16,4 @@ dados/processados/*.dta
 !dados/processados/painel_final.dta
 # Saídas do Stata geradas localmente
 resultados/tabelas/stata/
-resultados/figuras/tendencias_paralelas/*.png
+resultados/figuras/tendencias_paralelas/

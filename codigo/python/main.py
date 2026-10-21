@@ -10,12 +10,12 @@ Saídas
     resultados/tabelas/distribuicao_tratamento.csv
     resultados/tabelas/resultados_did.csv        (especificação do relatório)
     resultados/tabelas/comparacao_artigo.csv     (especificação do artigo × Tabela 2)
-    resultados/figuras/coeficientes_did.png
     resultados/figuras/comparacao_artigo.png
+    resultados/figuras/tendencias_estadual_2018.png
 """
 from biometria import config
 from biometria.dados import carregar_painel, distribuicao_tratamento, estatisticas_descritivas
-from biometria.figuras import grafico_comparacao, grafico_relatorio
+from biometria.figuras import grafico_comparacao, grafico_tendencias
 from biometria.modelos import paineis_artigo, paineis_relatorio
 
 
@@ -31,12 +31,12 @@ def main() -> None:
     print("2/4  DiD — especificação do relatório (painéis A–D)")
     rel = paineis_relatorio(df)
     rel.round(4).to_csv(config.TABELAS / "resultados_did.csv", index=False)
-    grafico_relatorio(rel, config.FIGURAS / "coeficientes_did.png")
 
     print("3/4  DiD — especificação do artigo e comparação com a Tabela 2")
     art = paineis_artigo(df)
     art.round(4).to_csv(config.TABELAS / "comparacao_artigo.csv", index=False)
     grafico_comparacao(art, config.FIGURAS / "comparacao_artigo.png")
+    grafico_tendencias(df, config.FIGURAS / "tendencias_estadual_2018.png")
 
     print("4/4  Resumo\n")
     cols = ["painel", "rotulo", "coef", "erro_padrao", "p_valor", "n"]
