@@ -1,0 +1,17 @@
+painel,descricao,desfecho,rotulo,coef,erro_padrao,p_valor,n
+A,Estaduais: tratados em 2018 vs demais,l_aptos,Log (Aptos),-0.0527,0.0032,0.0,60770
+A,Estaduais: tratados em 2018 vs demais,prop_compa,Comp./Aptos,3.9359,0.1008,0.0,60770
+A,Estaduais: tratados em 2018 vs demais,prop_pop,Comp./População,0.0014,0.002,0.4907,60770
+A,Estaduais: tratados em 2018 vs demais,l_compa,Log (Comp.),-0.0028,0.0032,0.3699,60770
+B,Estaduais: tratados em 2014 vs demais,l_aptos,Log (Aptos),-0.0233,0.0056,0.0,60770
+B,Estaduais: tratados em 2014 vs demais,prop_compa,Comp./Aptos,2.014,0.1472,0.0,60770
+B,Estaduais: tratados em 2014 vs demais,prop_pop,Comp./População,0.0015,0.0033,0.6422,60770
+B,Estaduais: tratados em 2014 vs demais,l_compa,Log (Comp.),0.0026,0.0051,0.6162,60770
+C,Municipais: tratados em 2016 vs demais,l_aptos,Log (Aptos),-0.0324,0.0042,0.0,60770
+C,Municipais: tratados em 2016 vs demais,prop_compa,Comp./Aptos,2.6086,0.1184,0.0,60770
+C,Municipais: tratados em 2016 vs demais,prop_pop,Comp./População,0.0047,0.0027,0.0762,60770
+C,Municipais: tratados em 2016 vs demais,l_compa,Log (Comp.),-0.0007,0.004,0.8626,60770
+D,"Placebo: estaduais 2010-2014, futuros tratados em 2018",l_aptos,Log (Aptos),0.0241,0.0067,0.1714,11052
+D,"Placebo: estaduais 2010-2014, futuros tratados em 2018",prop_compa,Comp./Aptos,-1.4164,0.4802,0.2081,11052
+D,"Placebo: estaduais 2010-2014, futuros tratados em 2018",prop_pop,Comp./População,0.006,0.0025,0.2499,11052
+D,"Placebo: estaduais 2010-2014, futuros tratados em 2018",l_compa,Log (Comp.),0.0071,0.0039,0.3246,11052

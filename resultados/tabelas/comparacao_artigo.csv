@@ -1,0 +1,17 @@
+painel,descricao,desfecho,rotulo,coef_replicacao,ep_replicacao,p_valor_replicacao,n_replicacao,coef_artigo,ep_artigo,n_artigo
+A,Estaduais: tratados em 2018 vs nunca tratados,l_aptos,Log (Aptos),-0.0565,0.0178,0.0247,28649,-0.062,0.02,28627
+A,Estaduais: tratados em 2018 vs nunca tratados,prop_compa_f,Comp./Aptos,0.045,0.0147,0.028,28649,0.05,0.016,28627
+A,Estaduais: tratados em 2018 vs nunca tratados,prop_pop,Comp./População,0.0056,0.0077,0.5026,28649,0.006,0.009,28627
+A,Estaduais: tratados em 2018 vs nunca tratados,l_compa,Log (Comp.),0.0006,0.0134,0.9657,28649,0.0008,0.015,28627
+B,Estaduais: tratados em 2014 vs nunca tratados,l_aptos,Log (Aptos),-0.0436,0.0402,0.327,21802,-0.045,0.038,20479
+B,Estaduais: tratados em 2014 vs nunca tratados,prop_compa_f,Comp./Aptos,0.0381,0.0161,0.0646,21802,0.039,0.014,20479
+B,Estaduais: tratados em 2014 vs nunca tratados,prop_pop,Comp./População,0.0053,0.0177,0.7763,21802,0.005,0.017,20479
+B,Estaduais: tratados em 2014 vs nunca tratados,l_compa,Log (Comp.),0.0045,0.0304,0.8869,21802,0.004,0.029,20479
+C,Municipais: tratados em 2016 vs nunca tratados,l_aptos,Log (Aptos),-0.0442,0.0321,0.2409,12162,-0.048,0.028,10904
+C,Municipais: tratados em 2016 vs nunca tratados,prop_compa_f,Comp./Aptos,0.0534,0.0135,0.0165,12162,0.059,0.011,10904
+C,Municipais: tratados em 2016 vs nunca tratados,prop_pop,Comp./População,0.0143,0.0172,0.4517,12162,0.017,0.017,10904
+C,Municipais: tratados em 2016 vs nunca tratados,l_compa,Log (Comp.),0.0197,0.0238,0.4552,12162,0.023,0.024,10904
+D,"Placebo: estaduais 2002-2014, pós = 2010 e 2014",l_aptos,Log (Aptos),0.0056,0.0125,0.6814,19099,-0.004,0.013,19594
+D,"Placebo: estaduais 2002-2014, pós = 2010 e 2014",prop_compa_f,Comp./Aptos,-0.0064,0.005,0.2884,19099,-0.007,0.006,19594
+D,"Placebo: estaduais 2002-2014, pós = 2010 e 2014",prop_pop,Comp./População,0.0028,0.0051,0.6209,19099,-0.0003,0.005,19594
+D,"Placebo: estaduais 2002-2014, pós = 2010 e 2014",l_compa,Log (Comp.),-0.0023,0.0097,0.8257,19099,-0.012,0.011,19594

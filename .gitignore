@@ -1,0 +1,17 @@
+# Base bruta grande (baixar da Base dos Dados — ver dados/README.md)
+dados/brutos/eleicoes.csv
+# Stata / Python temporários
+*.log
+*.smcl
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+~$*
+.pytest_cache/
+# Bases intermediárias geradas por 01_construcao_base.do (só o painel final é versionado)
+dados/processados/*.dta
+!dados/processados/painel_final.dta
+# Saídas do Stata geradas localmente
+resultados/tabelas/stata/
+resultados/figuras/tendencias_paralelas/*.png
